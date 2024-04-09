@@ -1,20 +1,59 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        main: {
+          dark: "#1F3BAD",
+          darker: "#2547D0",
+          base: "#335CFF",
+          16: "#E1E7FF",
+          10: "#EDF1FF",
+        },
+        bg: {
+          950: "#0E121B",
+          800: "#222530",
+          300: "#CACFD8",
+          200: "#E1E4E9",
+          50: "#F5F7FA",
+          0: "#FFFFFF",
+        },
+        text: {
+          950: "#0E121B",
+          600: "#525866",
+          400: "#99A0AD",
+          300: "#CACFD8",
+          0: "#FFFFFF",
+        },
+        border: {
+          950: "#0E121B",
+          300: "#CACFD8",
+          200: "#E1E4E9",
+          0: "#FFFFFF",
+        },
+        error: {
+          dark: "#681219",
+          darker: "#D02533",
+          base: "#FB3748",
+          16: "#FFC0C5",
+          10: "#FFEBEC",
+        },
       },
     },
+    borderRadius: {
+      4: "0.25rem",
+      6: "0.375rem",
+      8: "0.5rem",
+      10: "0.625rem",
+      12: "0.75rem",
+      16: "1rem",
+      20: "1.25rem",
+      24: "1.5rem",
+      full: "9999px",
+    },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };
 export default config;

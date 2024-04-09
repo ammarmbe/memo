@@ -2,32 +2,162 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+* {
+  @apply border-border-200 outline-none;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  @apply text-text-950 flex h-screen;
+  font-feature-settings: "case", "ss01", "cv01", "cv05", "cv10";
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  /* TYPOGRAPHY */
+  .title-h1 {
+    font-size: 3.5rem;
+    line-height: 4rem;
+    letter-spacing: -0.01em;
+    font-weight: 500;
   }
+
+  .title-h2 {
+    font-size: 3rem;
+    line-height: 3.5rem;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+  }
+
+  .title-h3 {
+    font-size: 2.5rem;
+    line-height: 3rem;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+  }
+
+  .title-h4 {
+    font-size: 2rem;
+    line-height: 2.5rem;
+    letter-spacing: -0.005em;
+    font-weight: 500;
+  }
+
+  .title-h5 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 500;
+  }
+
+  .title-h6 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 500;
+  }
+
+  .label-xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    letter-spacing: -0.015em;
+    font-weight: 500;
+  }
+
+  .label-lg {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    letter-spacing: -0.015em;
+    font-weight: 500;
+  }
+
+  .label-md {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    letter-spacing: -0.011em;
+    font-weight: 500;
+  }
+
+  .label-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: -0.006em;
+    font-weight: 500;
+  }
+
+  .label-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 500;
+  }
+
+  .pg-xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    letter-spacing: -0.015em;
+  }
+
+  .pg-lg {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    letter-spacing: -0.015em;
+  }
+
+  .pg-md {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    letter-spacing: -0.011em;
+  }
+
+  .pg-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: -0.006em;
+  }
+
+  .pg-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  .sh-md {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .sh-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .sh-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .sh-xxs {
+    font-size: 0.688rem;
+    line-height: 0.75rem;
+    letter-spacing: 0.02em;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  /* .docs-label {
+    font-size: 1.125rem;
+    line-height: 2rem;
+    letter-spacing: -0.015em;
+    font-weight: 500;
+  }
+
+  .docs-pg {
+    font-size: 1.125rem;
+    line-height: 2rem;
+    letter-spacing: -0.015em;
+  } */
 }
