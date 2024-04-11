@@ -9,11 +9,6 @@ import { twMerge } from "tailwind-merge";
 export const bogart = localFont({
   src: [
     {
-      path: "../../public/BogartBold-Italic.ttf",
-      style: "italic",
-      weight: "bold",
-    },
-    {
       path: "../../public/BogartSemibold-Italic.ttf",
       style: "italic",
       weight: "600",

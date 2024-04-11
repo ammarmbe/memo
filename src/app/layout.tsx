@@ -4,6 +4,8 @@ import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import RQProvider from "@/lib/RQProvider";
 import { Toaster } from "@/components/primitives/toast/Toaster";
+import { Suspense } from "react";
+import Loading from "@/components/primitives/Loading";
 
 const inter = localFont({
   src: [
@@ -30,12 +32,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <RQProvider>
-          <Toaster />
-          <Sidebar />
-          {children}
-        </RQProvider>
+      <body
+        className={`${inter.className} relative flex h-screen flex-col-reverse text-text-950 sm:flex-row`}
+      >
+        <Suspense fallback={<Loading isLoading={true} />}>
+          <RQProvider>
+            <Toaster />
+            <Sidebar />
+            {children}
+          </RQProvider>
+        </Suspense>
       </body>
     </html>
   );

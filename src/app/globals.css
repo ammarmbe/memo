@@ -7,7 +7,6 @@
 }
 
 body {
-  @apply flex h-screen text-text-950;
   font-feature-settings: "case", "ss01", "cv01", "cv05", "cv10";
 }
 
@@ -163,6 +162,6 @@ body {
 
   /* MISC */
   .card {
-    @apply shadow-xs flex flex-col gap-5 rounded-20 border bg-bg-0 p-8;
+    @apply flex flex-col gap-5 rounded-20 border bg-bg-0 p-8 shadow-xs;
   }
 }

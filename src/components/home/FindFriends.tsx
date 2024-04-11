@@ -109,8 +109,8 @@ export default function FindFriends() {
           text="Find Friends"
           className={
             data?.length
-              ? "relative after:absolute after:right-2 after:top-2 after:size-1.5 after:rounded-full after:border-border-0 after:bg-red-500"
-              : ""
+              ? "relative after:absolute after:right-2 after:top-2 after:size-1.5 after:rounded-full after:border-border-0 after:bg-red-500 sm:w-full"
+              : "sm:w-full"
           }
           icon_left={<UserPlus2 size={20} />}
         />
@@ -171,12 +171,13 @@ export default function FindFriends() {
             {data?.length ? (
               data.map((friend) => (
                 <div key={friend.id} className="flex items-center gap-3 p-4">
-                  <div className="relative size-8 overflow-auto rounded-full bg-bg-200">
+                  <div className="relative size-8 overflow-hidden rounded-full bg-bg-200">
                     {friend.image_url ? (
                       <Image
                         src={friend.image_url}
                         alt={friend.username}
                         fill
+                        quality={100}
                         sizes="2rem"
                       />
                     ) : null}

@@ -3,7 +3,7 @@ import Sidebar from "@/components/home/Sidebar";
 
 export default function Page() {
   return (
-    <main className="flex flex-grow">
+    <main className="flex min-h-0 flex-grow">
       <Sidebar />
       <Home />
     </main>

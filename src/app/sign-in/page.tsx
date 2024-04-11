@@ -54,6 +54,7 @@ export default async function Page() {
                   width={20}
                   height={20}
                   alt="GitHub logo"
+                  quality={100}
                 />
               }
             />
@@ -67,6 +68,7 @@ export default async function Page() {
                   src="/google.svg"
                   width={20}
                   height={20}
+                  quality={100}
                   alt="Google logo"
                 />
               }

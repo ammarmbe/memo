@@ -30,7 +30,7 @@ export default function Send() {
         }),
       });
     },
-    onMutate: () => {
+    onMutate: (content) => {
       setValue("");
       queryClient.setQueryData(
         ["messages"],
@@ -64,11 +64,29 @@ export default function Send() {
           };
         },
       );
+
+      queryClient.setQueryData(
+        ["chats"],
+        (
+          old:
+            | {
+                username: string;
+                image_url: string;
+                id: number;
+                created_at: string;
+                message: string;
+              }[]
+            | undefined,
+        ) =>
+          old?.map((o) =>
+            o.id.toString() === active.current ? { ...o, message: content } : o,
+          ),
+      );
     },
   });
 
   return (
-    <div className="flex">
+    <div className="flex p-4">
       <Input
         ref={inputRef as any}
         className="relative rounded-r-0 border-border-300 hover:border-border-300"

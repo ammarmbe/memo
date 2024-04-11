@@ -2,7 +2,7 @@ import { validateRequest } from "@/lib/auth";
 import sql from "@/lib/db";
 import PusherServer from "pusher";
 
-export const pusher = new PusherServer({
+const pusher = new PusherServer({
   appId: process.env.PUSHER_APP_ID as string,
   cluster: "eu",
   key: process.env.NEXT_PUBLIC_PUSHER_KEY as string,
@@ -42,12 +42,25 @@ export async function POST(req: Request) {
     return new Response(null, { status: 400 });
   }
 
+  const isFriends = await sql(
+    "SELECT * FROM friends WHERE (sender_id = $1 AND receiver_id = $2) OR (sender_id = $2 AND receiver_id = $1)",
+    [user.id, receiver_id],
+  );
+
+  if (!isFriends.length) {
+    return new Response(null, { status: 403 });
+  }
+
   const [message] = await sql(
     "INSERT INTO messages (sender_id, receiver_id, content) VALUES ($1, $2, $3) RETURNING *",
     [user.id, receiver_id, content],
   );
 
-  await pusher.trigger(`${user.id}_${receiver_id}`, "message", message);
+  await pusher.trigger(`${user.id}_${receiver_id}`, "message", {
+    ...message,
+    username: user.username,
+    image_url: user.image_url,
+  });
 
   return new Response(null, { status: 200 });
 }
