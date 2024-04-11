@@ -7,6 +7,7 @@ import { useUser } from "@/lib/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ChevronRight, UserCircle2 } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -15,6 +16,7 @@ export default function Settings() {
   const queryClient = useQueryClient();
   const { user, isFetching } = useUser();
   const fileRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const {
     register,
@@ -95,6 +97,8 @@ export default function Settings() {
   useEffect(() => {
     user?.username && setValue("username", user?.username);
   }, [setValue, user]);
+
+  if (!user) router.push("/sign-up");
 
   return (
     <div className="flex flex-grow flex-col">
