@@ -2,13 +2,13 @@
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useActive } from "@/lib/utils";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import React, { useEffect } from "react";
+import React from "react";
 
 export default function Chat() {
   const active = useActive();
 
-  const { data, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
-    queryKey: ["messages"],
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+    queryKey: ["messages", active.current],
     queryFn: async ({ pageParam }) => {
       const res = await fetch(
         `/api/messages?id=${active.current}&created_at=${pageParam}`,
@@ -35,11 +35,6 @@ export default function Chat() {
     refetchOnMount: true,
     refetchOnReconnect: true,
   });
-
-  useEffect(() => {
-    refetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [active.current, refetch]);
 
   return (
     <div
