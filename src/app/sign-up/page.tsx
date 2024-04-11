@@ -15,7 +15,7 @@ export default async function Page() {
     <div className="grid flex-grow grid-rows-[1fr,3fr,1fr] px-12 py-6">
       <div className="flex items-baseline justify-center self-start sm:justify-between">
         <Link
-          className={`${bogart.className} text-xl text-main-base hover:text-main-darker`}
+          className={`${bogart.className} text-2xl text-main-base hover:text-main-darker`}
           href="/"
         >
           memo
