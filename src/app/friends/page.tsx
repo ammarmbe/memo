@@ -4,7 +4,7 @@ import Sidebar from "@/components/friends/Sidebar";
 
 export default function Page() {
   return (
-    <main>
+    <main className="flex flex-grow">
       <Sidebar />
       <Friends />
     </main>

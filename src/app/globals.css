@@ -7,47 +7,47 @@
 }
 
 body {
-  @apply text-text-950 flex h-screen;
+  @apply flex h-screen text-text-950;
   font-feature-settings: "case", "ss01", "cv01", "cv05", "cv10";
 }
 
 @layer utilities {
   /* TYPOGRAPHY */
-  .title-h1 {
+  h1 {
     font-size: 3.5rem;
     line-height: 4rem;
     letter-spacing: -0.01em;
     font-weight: 500;
   }
 
-  .title-h2 {
+  h2 {
     font-size: 3rem;
     line-height: 3.5rem;
     letter-spacing: -0.01em;
     font-weight: 500;
   }
 
-  .title-h3 {
+  h3 {
     font-size: 2.5rem;
     line-height: 3rem;
     letter-spacing: -0.01em;
     font-weight: 500;
   }
 
-  .title-h4 {
+  h4 {
     font-size: 2rem;
     line-height: 2.5rem;
     letter-spacing: -0.005em;
     font-weight: 500;
   }
 
-  .title-h5 {
+  h5 {
     font-size: 1.5rem;
     line-height: 2rem;
     font-weight: 500;
   }
 
-  .title-h6 {
+  h6 {
     font-size: 1.25rem;
     line-height: 1.75rem;
     font-weight: 500;
@@ -160,4 +160,9 @@ body {
     line-height: 2rem;
     letter-spacing: -0.015em;
   } */
+
+  /* MISC */
+  .card {
+    @apply shadow-xs flex flex-col gap-5 rounded-20 border bg-bg-0 p-8;
+  }
 }

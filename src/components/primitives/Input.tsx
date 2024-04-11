@@ -1,9 +1,10 @@
 import * as React from "react";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
+import { LegacyRef, forwardRef } from "react";
 
 const buttonVariants = cva(
-  "peer pg-sm flex items-center h-fit justify-center gap-0.5 disabled:bg-bg-50 disabled:text-text-300 transition-all pg-sm bg-white border border-border-200 hover:border-bg-50 focus:border-border-950 hover:bg-bg-50 placeholder:text-text-400 placeholder:transition-all hover:placeholder:text-text-600 focus:placeholder:text-text-600 focus:bg-white focus:shadow-[0px_0px_0px_2px_white,0px_0px_0px_4px_#99A0AE29] shadow-[0px_1px_2px_0px_#0A0D1408] hover:shadow-none data-[invalid=true]:border-error-base data-[invalid=true]:focus:shadow-[0px_0px_0px_2px_white,0px_0px_0px_4px_#FB37481A]",
+  "peer pg-sm flex items-center h-fit justify-center gap-0.5 disabled:bg-bg-50 disabled:text-text-300 transition-all pg-sm bg-white border border-border-200 hover:border-bg-50 focus:border-border-950 hover:bg-bg-50 placeholder:text-text-400 placeholder:transition-all hover:placeholder:text-text-600 focus:placeholder:text-text-600 focus:bg-white focus:shadow-[0px_0px_0px_2px_white,0px_0px_0px_4px_#99A0AE29] shadow-xs hover:shadow-none data-[invalid=true]:border-error-base data-[invalid=true]:focus:shadow-[0px_0px_0px_2px_white,0px_0px_0px_4px_#FB37481A] w-full",
   {
     variants: {
       size: {
@@ -37,33 +38,48 @@ type InputOrTextareaProps = (
   size: "md" | "sm" | "xs";
   icon_side?: "left" | "right";
   icon?: React.ReactNode;
-  error?: boolean;
+  error?: any;
   error_message?: string;
   label?: string;
+  grow?: boolean;
 };
 
-const Input = (props: InputOrTextareaProps) => {
+const Input = forwardRef(function Input(
+  props: InputOrTextareaProps,
+  ref: LegacyRef<HTMLTextAreaElement> | LegacyRef<HTMLInputElement>,
+) {
+  const {
+    size,
+    icon_side,
+    icon,
+    error,
+    error_message,
+    className,
+    label,
+    grow,
+    ...rest
+  } = props;
+
   return (
-    <div className="flex flex-col gap-1">
-      {props.label ? (
-        <label htmlFor={props.label} className="label-sm">
-          {props.label}
+    <div className={`flex flex-col gap-1 ${grow ? "flex-grow" : ""}`}>
+      {label ? (
+        <label htmlFor={label} className="label-sm">
+          {label}
         </label>
       ) : null}
       <div className="relative">
-        {typeof props.href === "string" ? (
+        {typeof rest.href === "string" ? (
           <textarea
-            {...props}
-            id={props.label}
-            data-invalid={props.error}
+            ref={ref as LegacyRef<HTMLTextAreaElement>}
+            {...rest}
+            id={label}
+            data-invalid={error ? "true" : "false"}
             className={cn(
               buttonVariants({
-                size: props.size,
-                className: props.className,
-                icon_side: props.icon
-                  ? (((props.icon_side ?? "left") +
-                      "_" +
-                      (props.size ?? "md")) as
+                size: size,
+                className: className,
+                icon_side: icon
+                  ? (((icon_side ?? "left") + "_" + (size ?? "md")) as
                       | "left_md"
                       | "left_sm"
                       | "left_xs"
@@ -76,17 +92,16 @@ const Input = (props: InputOrTextareaProps) => {
           />
         ) : (
           <input
-            {...props}
-            id={props.label}
-            data-invalid={props.error}
+            ref={ref as LegacyRef<HTMLInputElement>}
+            {...rest}
+            id={label}
+            data-invalid={error ? "true" : "false"}
             className={cn(
               buttonVariants({
-                size: props.size,
-                className: props.className,
-                icon_side: props.icon
-                  ? (((props.icon_side ?? "left") +
-                      "_" +
-                      (props.size ?? "md")) as
+                size: size,
+                className: className,
+                icon_side: icon
+                  ? (((icon_side ?? "left") + "_" + (size ?? "md")) as
                       | "left_md"
                       | "left_sm"
                       | "left_xs"
@@ -96,33 +111,32 @@ const Input = (props: InputOrTextareaProps) => {
                   : null,
               }),
             )}
-            size={undefined}
           />
         )}
         <div
-          className={`peer-empty:text-text-400 peer-empty:peer-hover:text-text-600 peer-empty:peer-focus:text-text-600 text-text-600 absolute flex transition-all
+          className={`absolute flex text-text-600 transition-all peer-empty:text-text-400 peer-empty:peer-hover:text-text-600 peer-empty:peer-focus:text-text-600
           ${
-            props.icon_side === "right"
-              ? props.size === "md"
+            icon_side === "right"
+              ? size === "md"
                 ? "right-3 top-2.5"
-                : props.size === "sm"
+                : size === "sm"
                   ? "right-2.5 top-2"
                   : "right-2 top-1.5"
-              : props.size === "md"
+              : size === "md"
                 ? "left-3 top-2.5"
-                : props.size === "sm"
+                : size === "sm"
                   ? "left-2.5 top-2"
                   : "left-2 top-1.5"
           }`}
         >
-          {props.icon}
+          {icon}
         </div>
       </div>
-      {props.error && props.error_message ? (
-        <div className="pg-xs text-error-base">{props.error_message}</div>
+      {error && error_message ? (
+        <div className="pg-xs text-error-base">{error_message}</div>
       ) : null}
     </div>
   );
-};
+});
 
 export default Input;

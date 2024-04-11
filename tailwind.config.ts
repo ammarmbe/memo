@@ -43,6 +43,7 @@ const config: Config = {
       },
     },
     borderRadius: {
+      0: "0",
       4: "0.25rem",
       6: "0.375rem",
       8: "0.5rem",
@@ -52,6 +53,11 @@ const config: Config = {
       20: "1.25rem",
       24: "1.5rem",
       full: "9999px",
+    },
+    boxShadow: {
+      none: "none",
+      xs: "0px 1px 2px 0px #0A0D1408",
+      md: "0px 16px 32px -12px #0E121B1A",
     },
   },
   plugins: [require("tailwindcss-animate")],

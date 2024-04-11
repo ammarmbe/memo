@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
+import RQProvider from "@/lib/RQProvider";
+import { Toaster } from "@/components/primitives/toast/Toaster";
 
 const inter = localFont({
   src: [
@@ -17,8 +19,8 @@ const inter = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Memo",
-  description: "Chat with your friends on Memo",
+  title: "memo",
+  description: "Chat with your friends on memo",
 };
 
 export default function RootLayout({
@@ -29,8 +31,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Sidebar />
-        {children}
+        <RQProvider>
+          <Toaster />
+          <Sidebar />
+          {children}
+        </RQProvider>
       </body>
     </html>
   );

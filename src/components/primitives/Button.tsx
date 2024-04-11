@@ -2,9 +2,10 @@ import * as React from "react";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { forwardRef } from "react";
 
 const buttonVariants = cva(
-  "flex items-center justify-center h-fit gap-0.5 disabled:bg-bg-50 disabled:text-text-300 transition-all label-sm",
+  "flex items-center justify-center h-fit gap-0.5 disabled:!bg-bg-50 disabled:!text-text-300 disabled:!shadow-none disabled:!border-border-200 transition-all label-sm",
   {
     variants: {
       size: {
@@ -56,10 +57,14 @@ type ButtonOrLinkProps = (
   icon_right?: React.ReactNode;
 };
 
-const Button = (props: ButtonOrLinkProps) => {
+const Button = forwardRef(function Button(
+  props: ButtonOrLinkProps,
+  ref: React.LegacyRef<HTMLAnchorElement> | React.LegacyRef<HTMLButtonElement>,
+) {
   if (typeof props.href === "string") {
     return (
       <Link
+        ref={ref as React.LegacyRef<HTMLAnchorElement>}
         {...props}
         className={cn(
           buttonVariants({
@@ -78,6 +83,7 @@ const Button = (props: ButtonOrLinkProps) => {
 
   return (
     <button
+      ref={ref as React.LegacyRef<HTMLButtonElement>}
       {...props}
       type={props.type ?? "button"}
       className={cn(
@@ -93,6 +99,6 @@ const Button = (props: ButtonOrLinkProps) => {
       {props.icon_right}
     </button>
   );
-};
+});
 
 export default Button;
