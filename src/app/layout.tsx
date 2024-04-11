@@ -23,6 +23,12 @@ const inter = localFont({
 export const metadata: Metadata = {
   title: "memo",
   description: "Chat with your friends on memo",
+  metadataBase: new URL("https://memo.ambe.dev"),
+  appleWebApp: {
+    title: "memo",
+    capable: true,
+    statusBarStyle: "default",
+  },
 };
 
 export default function RootLayout({
