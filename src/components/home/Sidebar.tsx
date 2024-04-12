@@ -125,7 +125,7 @@ export default function Sidebar() {
           image_url: string;
         }) => {
           queryClient.setQueryData(
-            ["messages"],
+            ["messages", active.current],
             (
               data:
                 | InfiniteData<
@@ -156,17 +156,13 @@ export default function Sidebar() {
                 | undefined,
             ) => chatsUpdater(old, d, current),
           );
-
-          console.log("message received");
         },
       );
-
-    console.log("subscribed");
 
     return () => {
       channel.unbind();
     };
-  }, [active, queryClient, user]);
+  }, [active.current, queryClient, user]);
 
   return (
     <div

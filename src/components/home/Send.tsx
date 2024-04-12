@@ -33,7 +33,7 @@ export default function Send() {
     onMutate: (content) => {
       setValue("");
       queryClient.setQueryData(
-        ["messages"],
+        ["messages", active.current],
         (
           data:
             | InfiniteData<
@@ -48,19 +48,33 @@ export default function Send() {
               >
             | undefined,
         ) => {
-          const newFirstPage = [
-            {
-              id: Math.random().toString(),
-              content: value,
-              created_at: new Date().toISOString(),
-              sender_id: user?.id,
-              receiver_id: parseInt(active.current ?? ""),
-            },
-          ];
+          console.log([
+            [
+              {
+                id: Math.random().toString(),
+                content: value,
+                created_at: new Date().toISOString(),
+                sender_id: user?.id,
+                receiver_id: parseInt(active.current ?? ""),
+              },
+            ],
+            ...(data?.pages ?? []),
+          ]);
 
           return {
             pageParams: data?.pageParams,
-            pages: [newFirstPage, ...(data?.pages ?? [])],
+            pages: [
+              [
+                {
+                  id: Math.random().toString(),
+                  content: value,
+                  created_at: new Date().toISOString(),
+                  sender_id: user?.id,
+                  receiver_id: parseInt(active.current ?? ""),
+                },
+              ],
+              ...(data?.pages ?? []),
+            ],
           };
         },
       );
