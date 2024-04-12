@@ -22,8 +22,8 @@ export async function GET(req: Request) {
   }
 
   const data = await sql(
-    "SELECT messages.id AS id, messages.created_at, messages.content, messages.sender_id, messages.receiver_id FROM messages WHERE (messages.sender_id = $1 AND messages.receiver_id = $2) OR (messages.sender_id = $2 AND messages.receiver_id = $1) AND messages.created_at < $3::timestamp ORDER BY messages.created_at DESC LIMIT 20",
-    [user.id, id, created_at],
+    "SELECT messages.id AS id, messages.created_at, messages.content, messages.sender_id, messages.receiver_id FROM messages WHERE (messages.sender_id = $1 AND messages.receiver_id = $2) OR (messages.sender_id = $2 AND messages.receiver_id = $1) AND EXTRACT(epoch FROM messages.created_at) < $3 ORDER BY messages.created_at DESC LIMIT 20",
+    [user.id, id, new Date(created_at || new Date().toString()).getTime()],
   );
 
   return new Response(JSON.stringify(data));

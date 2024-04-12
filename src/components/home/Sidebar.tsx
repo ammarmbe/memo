@@ -86,7 +86,7 @@ export default function Sidebar() {
   const { user } = useUser();
   const queryClient = useQueryClient();
 
-  const { data, isFetching } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["chats"],
     queryFn: async () => {
       const res = await fetch("/api/chats");
@@ -101,7 +101,9 @@ export default function Sidebar() {
       >;
     },
     enabled: !!user,
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
+    refetchOnReconnect: true,
   });
 
   useEffect(() => {
@@ -162,6 +164,7 @@ export default function Sidebar() {
     return () => {
       channel.unbind();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active.current, queryClient, user]);
 
   return (
@@ -179,7 +182,7 @@ export default function Sidebar() {
       <div className="flex flex-grow flex-col gap-2">
         <p className="sh-xs py-1 text-text-400">Recent Chats</p>
         <nav className="relative flex flex-grow flex-col gap-1">
-          <Loading isLoading={isFetching} size={32} />
+          <Loading isLoading={isLoading} size={32} />
           {data?.map((friend) => (
             <Link
               key={friend.id}

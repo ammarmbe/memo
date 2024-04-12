@@ -48,19 +48,6 @@ export default function Send() {
               >
             | undefined,
         ) => {
-          console.log([
-            [
-              {
-                id: Math.random().toString(),
-                content: value,
-                created_at: new Date().toISOString(),
-                sender_id: user?.id,
-                receiver_id: parseInt(active.current ?? ""),
-              },
-            ],
-            ...(data?.pages ?? []),
-          ]);
-
           return {
             pageParams: data?.pageParams,
             pages: [
