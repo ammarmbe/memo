@@ -1,7 +1,6 @@
 "use client";
 import { formatDate, useActive } from "@/lib/utils";
-import { useIsFetching, useQueryClient } from "@tanstack/react-query";
-import Loading from "../primitives/Loading";
+import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useMemo } from "react";
 import Chat from "./Chat";
@@ -12,9 +11,6 @@ import Link from "next/link";
 export default function Home() {
   const active = useActive();
   const queryClient = useQueryClient();
-  const isFetching = useIsFetching({
-    queryKey: ["chats"],
-  });
 
   const data = queryClient.getQueryData<
     {
@@ -36,7 +32,6 @@ export default function Home() {
     >
       {active.current ? (
         <>
-          <Loading isLoading={isFetching > 0} />
           <div className="grid grid-cols-[auto,1fr] grid-rows-[auto,auto] gap-x-3.5 gap-y-1 px-4 py-3 sm:px-8 sm:py-5">
             <div className="row-span-2 flex gap-3.5">
               <Link href="/" className="flex h-full items-center text-text-600">
