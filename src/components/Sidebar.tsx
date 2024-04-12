@@ -1,6 +1,6 @@
 "use client";
 import { bogart } from "@/lib/utils";
-import { MessageCircle, Settings } from "lucide-react";
+import { LogOut, MessageCircle, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -29,7 +29,7 @@ export default function Sidebar() {
         <p className="sh-xs hidden py-1 text-center text-text-400 sm:inline-block">
           Main
         </p>
-        <nav className="grid grid-cols-2 flex-col gap-2 sm:flex sm:gap-1 sm:px-2.5">
+        <nav className="grid grid-cols-3 flex-col gap-2 sm:flex sm:gap-1 sm:px-2.5">
           <Link
             href="/"
             className={`relative flex items-center justify-center rounded-8 p-2 transition-all ${pathname === "/" ? "bg-bg-50 text-main-base after:absolute after:-left-[calc(1.125rem+4px)] after:top-2 after:h-5 after:w-1 after:rounded-r-4 after:bg-main-base after:!content-none sm:after:content-['']" : "text-text-600 hover:bg-bg-50"}`}
@@ -42,6 +42,27 @@ export default function Sidebar() {
           >
             <Settings size={20} />
           </Link>
+          <button
+            onClick={async () => {
+              await fetch("/api/auth/sign-out");
+            }}
+            className={`relative flex items-center justify-center rounded-8 p-2 transition-all sm:hidden ${pathname === "/settings" ? "bg-bg-50 text-main-base after:absolute after:-left-[calc(1.125rem+4px)] after:top-2 after:h-5 after:w-1 after:rounded-r-4 after:bg-main-base after:!content-none sm:after:content-['']" : "text-text-600 hover:bg-bg-50"}`}
+          >
+            <LogOut size={20} />
+          </button>
+        </nav>
+      </div>
+      <div className="mx-5 hidden border-t sm:block" />
+      <div className="hidden sm:block sm:px-3 sm:py-5">
+        <nav className="sm:px-1.5">
+          <button
+            onClick={async () => {
+              await fetch("/api/auth/sign-out");
+            }}
+            className="flex items-center justify-center rounded-8 p-3 text-text-600 hover:bg-bg-50"
+          >
+            <LogOut size={20} />
+          </button>
         </nav>
       </div>
     </div>

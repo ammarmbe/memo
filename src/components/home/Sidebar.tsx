@@ -156,8 +156,12 @@ export default function Sidebar() {
                 | undefined,
             ) => chatsUpdater(old, d, current),
           );
+
+          console.log("message received");
         },
       );
+
+    console.log("subscribed");
 
     return () => {
       channel.unbind();

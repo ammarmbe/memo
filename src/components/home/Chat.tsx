@@ -3,11 +3,12 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useActive } from "@/lib/utils";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
+import Loading from "../primitives/Loading";
 
 export default function Chat() {
   const active = useActive();
 
-  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+  const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery({
     queryKey: ["messages", active.current],
     queryFn: async ({ pageParam }) => {
       const res = await fetch(
@@ -55,6 +56,7 @@ export default function Chat() {
         }
         scrollableTarget="scrollableDiv"
       >
+        <Loading isLoading={isLoading} />
         {data?.pages.map((page) =>
           page.map((message) =>
             message.sender_id.toString() === active.current ? (
