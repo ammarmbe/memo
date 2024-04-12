@@ -6,6 +6,7 @@ import RQProvider from "@/lib/RQProvider";
 import { Toaster } from "@/components/primitives/toast/Toaster";
 import { Suspense } from "react";
 import Loading from "@/components/primitives/Loading";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = localFont({
   src: [
