@@ -98,7 +98,7 @@ export default function Settings() {
     user?.username && setValue("username", user?.username);
   }, [setValue, user]);
 
-  if (!user) router.push("/sign-up");
+  if (user === null) router.push("/sign-up");
 
   return (
     <div className="flex flex-grow flex-col">
