@@ -1,6 +1,7 @@
 import { validateRequest } from "@/lib/auth";
 import sql from "@/lib/db";
 import { BlobServiceClient } from "@azure/storage-blob";
+import { nanoid } from "nanoid";
 
 export async function POST(req: Request) {
   const { user } = await validateRequest();
@@ -23,9 +24,22 @@ export async function POST(req: Request) {
     `https://${accountName}.blob.core.windows.net/?${sasToken}`,
   );
   const containerClient = blobServiceClient.getContainerClient(containerName);
-  const blockBlobClient = containerClient.getBlockBlobClient(user.username);
+  const blockBlobClient = containerClient.getBlockBlobClient(
+    user.username + nanoid(),
+  );
 
-  await blockBlobClient.deleteIfExists();
+  const oldBlockBlobClientName = user.image_url
+    .split("?")[0]
+    ?.split("/")
+    .at(-1);
+
+  if (oldBlockBlobClientName) {
+    const oldBlockBlobClient = containerClient.getBlockBlobClient(
+      oldBlockBlobClientName,
+    );
+
+    await oldBlockBlobClient.deleteIfExists();
+  }
 
   await blockBlobClient.uploadData(fileBuffer, {
     blobHTTPHeaders: {
