@@ -90,9 +90,10 @@ export default function Send() {
     <div className="flex p-4">
       <Input
         ref={inputRef as any}
-        className="relative rounded-r-0 border-border-300 hover:border-border-300"
+        className="relative !h-[calc(22px+1.25rem)] rounded-r-0 border-border-300 hover:border-border-300"
         grow
         size="md"
+        enterKeyHint="send"
         onFocus={(e) => {
           e.currentTarget.classList.add("z-10");
           sendRef.current?.classList.remove("z-10");
