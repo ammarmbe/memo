@@ -40,7 +40,7 @@ export default function Chat() {
   return (
     <div
       id="scrollableDiv"
-      className="flex flex-col-reverse overflow-auto p-4 pb-0"
+      className="flex flex-col-reverse overflow-y-scroll p-4 pb-0"
     >
       <InfiniteScroll
         next={fetchNextPage}

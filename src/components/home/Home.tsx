@@ -1,6 +1,6 @@
 "use client";
 import { formatDate, useActive } from "@/lib/utils";
-import { useQueryClient } from "@tanstack/react-query";
+import { useIsFetching, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useMemo } from "react";
 import Chat from "./Chat";
@@ -11,6 +11,9 @@ import Link from "next/link";
 export default function Home() {
   const active = useActive();
   const queryClient = useQueryClient();
+  useIsFetching({
+    queryKey: ["chats"],
+  });
 
   const data = queryClient.getQueryData<
     {
