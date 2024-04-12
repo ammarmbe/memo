@@ -101,12 +101,7 @@ export default function Send() {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={(e) => {
-          if (
-            e.key === "Enter" &&
-            !e.shiftKey &&
-            value &&
-            window.outerWidth > 768
-          ) {
+          if (e.key === "Enter" && !e.shiftKey && value) {
             sendMutation.mutate(value);
           }
         }}
