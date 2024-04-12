@@ -29,10 +29,10 @@ export async function POST(req: Request) {
   );
 
   const oldBlockBlobClientName = user.image_url
-    .split("?")[0]
+    ?.split("?")?.[0]
     ?.split("/")
-    .at(-1)
-    ?.split("___")[0];
+    ?.at(-1)
+    ?.split("___")?.[0];
 
   if (oldBlockBlobClientName) {
     const oldBlockBlobClient = containerClient.getBlockBlobClient(
