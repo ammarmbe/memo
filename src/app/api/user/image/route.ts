@@ -25,13 +25,14 @@ export async function POST(req: Request) {
   );
   const containerClient = blobServiceClient.getContainerClient(containerName);
   const blockBlobClient = containerClient.getBlockBlobClient(
-    user.username + nanoid(),
+    user.username + "___" + nanoid(),
   );
 
   const oldBlockBlobClientName = user.image_url
     .split("?")[0]
     ?.split("/")
-    .at(-1);
+    .at(-1)
+    ?.split("___")[0];
 
   if (oldBlockBlobClientName) {
     const oldBlockBlobClient = containerClient.getBlockBlobClient(
