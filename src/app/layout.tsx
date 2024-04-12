@@ -42,6 +42,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} relative flex h-screen flex-col-reverse text-text-950 sm:flex-row`}
       >
+        <Analytics />
         <Suspense fallback={<Loading isLoading={true} />}>
           <RQProvider>
             <Toaster />
