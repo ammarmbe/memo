@@ -1,6 +1,5 @@
 import { validateRequest, lucia } from "@/lib/auth";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 export async function GET() {
   const { session } = await validateRequest();
@@ -20,5 +19,5 @@ export async function GET() {
     sessionCookie.attributes,
   );
 
-  return redirect("/sign-in");
+  return Response.redirect(`${process.env.BASE_URL}/sign-in`);
 }
