@@ -4,11 +4,11 @@ import { UserPlus2, X } from "lucide-react";
 import Button from "../primitives/Button";
 import Dialog from "../primitives/Dialog";
 import Input from "../primitives/Input";
-import { useUser } from "@/lib/utils";
+import { pusher, useUser } from "@/lib/utils";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Loading from "../primitives/Loading";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "../primitives/toast/use-toast";
 
 export default function FindFriends() {
@@ -99,6 +99,39 @@ export default function FindFriends() {
       );
     },
   });
+
+  useEffect(() => {
+    const channel = pusher
+      .subscribe(`friends_${user?.username}`)
+      .bind(
+        "request",
+        async (d: { id: number; username: string; image_url: string }) => {
+          queryClient.setQueryData(
+            ["find-friends"],
+            (
+              data:
+                | {
+                    username: string;
+                    image_url: string;
+                    id: number;
+                  }[]
+                | undefined,
+            ) => {
+              return data?.unshift({
+                username: d.username,
+                image_url: d.image_url,
+                id: d.id,
+              });
+            },
+          );
+        },
+      );
+
+    return () => {
+      channel.unbind();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queryClient, user]);
 
   return (
     <Dialog

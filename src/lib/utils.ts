@@ -5,6 +5,7 @@ import localFont from "next/font/local";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 import { twMerge } from "tailwind-merge";
+import PusherClient from "pusher-js";
 
 export const bogart = localFont({
   src: [
@@ -68,3 +69,10 @@ export function formatDate(date?: string) {
     dateStyle: "medium",
   }).format(new Date(date));
 }
+
+export const pusher = new PusherClient(
+  process.env.NEXT_PUBLIC_PUSHER_KEY as string,
+  {
+    cluster: "eu",
+  },
+);

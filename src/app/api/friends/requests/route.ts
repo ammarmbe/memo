@@ -1,5 +1,6 @@
 import { validateRequest } from "@/lib/auth";
 import sql from "@/lib/db";
+import { pusher } from "@/lib/pusher";
 
 export async function GET() {
   const { user } = await validateRequest();
@@ -44,6 +45,12 @@ export async function POST(req: Request) {
       "INSERT INTO friends (sender_id, receiver_id, status) VALUES ($1, $2, 'pending')",
       [user.id, friend.id],
     );
+
+    await pusher.trigger(`friends_${username}`, "request", {
+      id: user.id,
+      username: user.username,
+      image_url: user.image_url,
+    });
 
     return new Response(null, { status: 201 });
   } else {

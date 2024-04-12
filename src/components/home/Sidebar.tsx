@@ -1,16 +1,11 @@
 "use client";
 import Link from "next/link";
-import { useActive, useUser } from "@/lib/utils";
+import { pusher, useActive, useUser } from "@/lib/utils";
 import { InfiniteData, useQuery, useQueryClient } from "@tanstack/react-query";
 import Loading from "../primitives/Loading";
 import Image from "next/image";
 import FindFriends from "./FindFriends";
 import { useEffect } from "react";
-import PusherClient from "pusher-js";
-
-const pusher = new PusherClient(process.env.NEXT_PUBLIC_PUSHER_KEY as string, {
-  cluster: "eu",
-});
 
 function chatsUpdater(
   old:
