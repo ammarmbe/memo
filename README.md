@@ -2,6 +2,8 @@
 
 memo is a real-time messaging app created using Next.js 14, PostgreSQL, and Lucia auth. <br> Deployed at: [memo.ambe.dev](https://memo.ambe.dev/).
 
+![memo](https://github.com/ammarmbe/memo/assets/117791580/7b0b8921-730f-417d-9801-be5cb515d016)
+
 ## Features:
 
 - **Friends:** users can send and accept friend requests from others.
