@@ -153,6 +153,17 @@ export default function Sidebar() {
                 | undefined,
             ) => chatsUpdater(old, d, current),
           );
+
+          // play sound
+          const chatIsOpen =
+            (active.current === d.sender_id.toString() ||
+              active.current === d.receiver_id.toString()) &&
+            window.document.hasFocus();
+
+          const audio = new Audio("/notification.mp3");
+
+          document.title = !chatIsOpen ? "memo *" : "memo";
+          !chatIsOpen && audio.play();
         },
       );
 
@@ -161,6 +172,19 @@ export default function Sidebar() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active.current, queryClient, user]);
+
+  useEffect(() => {
+    // reset title on window focus
+    const resetTitle = () => {
+      document.title = "memo";
+    };
+
+    window.addEventListener("focus", resetTitle);
+
+    return () => {
+      window.removeEventListener("focus", resetTitle);
+    };
+  }, []);
 
   return (
     <div
